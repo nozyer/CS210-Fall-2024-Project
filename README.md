@@ -11,11 +11,9 @@
 
 
 
- DATASET: 
-
-    - Netflix Data: This will include Title, Start Time, Watch Duration, Type and Genre.
-
-    - Spotify Data: This will include Genre, Listen Duration and Start Time.
+### DATASET
+- **Netflix Data:** This will include Title, Start Time, Watch Duration, Type, and Genre.
+- **Spotify Data:** This will include Genre, Listen Duration, and Start Time.
 
 
 
@@ -63,4 +61,3 @@
         - Data Analysis: Python with libraries like Pandas for data manipulation and Scikit-learn for analysis.
 
         - Visualization: Matplotlib or Seaborn for creating insightful visualizations.
-        
