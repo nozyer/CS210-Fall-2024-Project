@@ -2,58 +2,133 @@
 
 ## Netflix and Spotify Data Analyzing Project
 
-### Project Idea
-**Mood Analysis of Netflix and Spotify Preferences**
+---
 
-- The idea is to understand how different types of movies or series I watch on Netflix affect my mood and how this influences my music preferences on Spotify. By examining the relationship between my streaming choices across these two platforms, I can gain insights into how my mood is shaped by my entertainment habits.
+### **Project Overview**
+This project aims to explore the relationship between Netflix and Spotify preferences and how moods transition between these platforms. By analyzing viewing habits on Netflix and listening behaviors on Spotify, we uncover insights into how entertainment affects mood and identify patterns that can help build a mood-based recommendation system.
 
 ---
 
-### Dataset
-- **Netflix Data:** This will include:
-  - Title
-  - Start Time
-  - Watch Duration
-  - Type
-  - Genre
-- **Spotify Data:** This will include:
-  - Genre
-  - Listen Duration
-  - Start Time
+### **Datasets Used**
+
+1. **Netflix Data**:
+   - Columns:
+     - `Title`: Name of the watched content.
+     - `Start Time`: Time the content was played.
+     - `Watch Duration`: Duration of viewing.
+     - `Type`: Movie or series.
+     - `Genre`: Genre of the content.
+     - `Mood_x`: Represents the inferred mood from the genre (e.g., Joyful/Relaxed, Energetic/Excited).
+
+2. **Spotify Data**:
+   - Columns:
+     - `Genre`: Music genre.
+     - `Listen Duration`: Duration of listening.
+     - `Start Time`: Time the song or playlist was played.
+     - `Mood_y`: Represents the inferred mood from the song or playlist (e.g., Neutral, Melancholic/Emotional).
+
+3. **Merged Dataset**:
+   - Combines Netflix and Spotify data, aligned by timestamps, and includes moods (`Mood_x` for Netflix, `Mood_y` for Spotify).
 
 ---
 
-### Project Plan
+### **Project Plan**
 
-#### Data Preprocessing
-- Collect data from both Netflix and Spotify and clean it for analysis.
-- Synchronize the data from both platforms to match specific time periods.
+#### **1. Data Preprocessing**
+- Merged Netflix and Spotify datasets into a unified structure for easier analysis.
+- Cleaned and synchronized the data using timestamps, ensuring meaningful mood correlations.
 
-#### Mood Classification
-- Assign mood labels to different Netflix content genres. For example:
-  - **Drama:** Melancholic or emotional mood.
-  - **Comedy:** Relaxed or joyful mood.
-  - **Action:** Energetic or excited mood.
-- Use Spotify song attributes (energy, valence, danceability) to classify their mood impact.
+#### **2. Mood Classification**
+- **Netflix Moods**:
+  - Assigned moods to genres:
+    - Drama → Melancholic/Emotional.
+    - Comedy → Joyful/Relaxed.
+    - Action → Energetic/Excited.
+- **Spotify Moods**:
+  - Assigned moods based on listening data and song attributes:
+    - High danceability and energy → Energetic/Excited.
+    - Low tempo and high acousticness → Calm/Neutral.
 
-#### Correlation Analysis
-- Analyze correlations between Netflix genres and Spotify music preferences.
-- For instance, determine if watching dramas leads to a preference for calmer, more emotional music, or if action movies lead to a preference for more energetic music.
+#### **3. Correlation Analysis**
+- Examined correlations between Netflix moods and Spotify moods.
+- Key patterns:
+  - **Mood Alignment**: Watching joyful content aligns with listening to joyful music.
+  - **Mood Compensation**: Watching energetic content may lead to listening to calmer music.
 
-#### Visualization
-- Create visualizations to showcase the relationship between the type of Netflix content I watched and the subsequent music choices on Spotify.
-- Use time series graphs to depict changes in mood and music genre preferences over time.
-- Utilize heatmaps to show correlations between content genres and music preferences.
+#### **4. Visualization**
+- Created heatmaps and charts to explore:
+  - Relationships between Netflix moods and Spotify moods.
+  - Correlations among Spotify song attributes like energy, danceability, and valence.
+
+#### **5. Expected Outcomes**
+- Understand how Netflix content influences Spotify music preferences.
+- Identify whether users prefer mood alignment or compensation when switching between platforms.
+
+#### **6. Mood-Based Recommendation System**
+- Developed a machine learning model using **Balanced Random Forest Classifier** to predict Spotify moods based on Netflix moods.
+- Provided mood-based music recommendations to complement Netflix viewing experiences.
 
 ---
 
-### Expected Outcomes
-- Gain insights into how my mood is influenced by different types of content on Netflix and how it affects my Spotify music preferences.
-- Develop a mood-based recommendation system that suggests music after specific genres of movies or series are watched, enhancing my overall entertainment experience.
+### **Results and Insights**
+
+#### **Model Performance**
+- **Accuracy**: **40%**
+  - The model correctly predicted 2 out of 5 samples in the test set.
+  - Precision, recall, and F1-scores varied significantly across classes.
+
+#### **Key Findings**
+1. **Energetic/Excited**:
+   - Precision: **1.00**
+   - Recall: **0.50**
+   - The model was confident in its predictions but missed half of the true occurrences.
+   
+2. **Neutral**:
+   - Precision and Recall: **0.50**
+   - The model moderately predicted the occurrences of Neutral mood.
+
+3. **Underrepresented Classes**:
+   - **Joyful/Relaxed**, **Melancholic/Emotional**, and **Mysterious/Tense** had insufficient data in the training or test sets, leading to poor or no predictions.
+
+#### **Behavioral Insights**
+- **Mood Alignment**:
+  - Users often maintain their mood between platforms. For instance, watching joyful content on Netflix aligns with listening to joyful music on Spotify.
+
+- **Mood Compensation**:
+  - Some users switch to contrasting moods. After watching energetic or tense Netflix content, users often listen to calming or neutral music.
+
+- **Class Imbalance**:
+  - The dataset's imbalance caused the model to favor dominant classes like **Energetic/Excited** and **Neutral**, which had better representation.
 
 ---
 
-### Tools and Technologies
-- **Data Collection:** Use Netflix and Spotify data export tools.
-- **Data Analysis:** Python with libraries like Pandas for data manipulation and Scikit-learn for analysis.
-- **Visualization:** Matplotlib or Seaborn for creating insightful visualizations.
+### **Future Enhancements**
+
+1. **Data Improvements**:
+   - Collect additional samples for underrepresented moods.
+   - Incorporate richer features like Spotify song attributes (e.g., valence, tempo).
+
+2. **Algorithm Optimization**:
+   - Experiment with alternative models like **XGBoost** or **LightGBM**.
+   - Optimize hyperparameters to improve model accuracy.
+
+3. **Cross-Platform Integration**:
+   - Integrate Netflix and Spotify APIs to provide real-time recommendations.
+
+4. **Behavioral Insights**:
+   - Analyze how mood preferences evolve throughout the day.
+
+---
+
+### **How to Use**
+
+#### **Run the Code**
+1. Load the dataset: `"Cleaned_Netflix_and_Spotify_Merged_Data.csv"`.
+2. Train the machine learning model to predict Spotify moods based on Netflix moods.
+
+#### **Make Predictions**
+- Use the `recommend_mood()` function to predict Spotify moods based on a given Netflix mood.
+- Example:
+  ```python
+  recommendation = recommend_mood("Joyful/Relaxed")
+  print(f"Recommended Spotify Mood: {recommendation}")
